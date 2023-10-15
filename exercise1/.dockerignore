@@ -1,0 +1,4 @@
+Dockerfile
+app/build
+.gradle
+README.md

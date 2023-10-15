@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  server:
+    image: ushka1/programowanie-android-exercise-1:latest
+    ports:
+      - 8080:8080
