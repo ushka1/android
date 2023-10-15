@@ -1,4 +1,4 @@
-# Programowanie Android - Zadanie 1
+# Android Class - Exercise 1
 
 ## Description
 
