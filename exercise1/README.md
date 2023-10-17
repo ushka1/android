@@ -2,7 +2,7 @@
 
 ## Description
 
-[Dockerhub image link.](https://hub.docker.com/repository/docker/ushka1/android-class-exercise-1/general)
+[Dockerhub image link.](https://hub.docker.com/r/ushka1/android-class-exercise-1)
 
 Project is a simple Java server responding "Hello, world!" to every request it receives.
 
