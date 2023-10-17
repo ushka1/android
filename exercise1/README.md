@@ -2,6 +2,8 @@
 
 ## Description
 
+[Dockerhub image link.](https://hub.docker.com/repository/docker/ushka1/android-class-exercise-1/general)
+
 Project is a simple Java server responding "Hello, world!" to every request it receives.
 
 ## Commands
@@ -12,20 +14,20 @@ Project is a simple Java server responding "Hello, world!" to every request it r
   docker build -t ushka1/android-class-exercise-1 .
   ```
 
+- Push Docker image to Docker Hub
+
+  ```cmd
+  docker push ushka1/android-class-exercise-1
+  ```
+
 - Start Docker container
 
   ```cmd
   docker run --rm -p 8080:8080 ushka1/android-class-exercise-1
   ```
 
-- Alternatively, you can use Docker Compose
+- Alternatively, use Docker Compose
 
   ```cmd
   docker-compose up
-  ```
-
-- Push Docker image to Docker Hub
-
-  ```cmd
-  docker push ushka1/android-class-exercise-1
   ```
