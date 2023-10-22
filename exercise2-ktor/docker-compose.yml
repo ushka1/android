@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  ktor-app:
+    image: ushka1/android-class-exercise2-ktor
+    build:
+      context: .
+  ngrok:
+    image: ngrok/ngrok:3
+    ports:
+      - "4040:4040"
+    command: http ktor-app:8080
