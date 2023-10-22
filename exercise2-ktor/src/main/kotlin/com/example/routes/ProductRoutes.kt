@@ -30,7 +30,8 @@ fun Route.productRouting() {
             productDao.addNewProduct(
                 productData.name,
                 productData.description,
-                productData.price
+                productData.price,
+                productData.categoryCode,
             )
 
             call.respondText(
@@ -49,7 +50,8 @@ fun Route.productRouting() {
                 id,
                 productData.name,
                 productData.description,
-                productData.price
+                productData.price,
+                productData.categoryCode,
             )
 
             if (res) {

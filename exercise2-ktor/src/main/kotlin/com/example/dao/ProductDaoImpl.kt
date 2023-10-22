@@ -12,6 +12,7 @@ class ProductDaoImpl : ProductDao {
         name = row[Products.name],
         description = row[Products.description],
         price = row[Products.price],
+        categoryCode = row[Products.categoryCode]
     )
 
     override suspend fun allProducts(): List<Product> = dbQuery {
@@ -25,21 +26,34 @@ class ProductDaoImpl : ProductDao {
             .singleOrNull()
     }
 
-    override suspend fun addNewProduct(name: String, description: String, price: Float): Product? = dbQuery {
+    override suspend fun addNewProduct(
+        name: String,
+        description: String,
+        price: Float,
+        categoryCode: String
+    ): Product? = dbQuery {
         val insertStatement = Products.insert {
             it[Products.name] = name
             it[Products.description] = description
             it[Products.price] = price
+            it[Products.categoryCode] = categoryCode
         }
 
         insertStatement.resultedValues?.singleOrNull()?.let(::resultRowToProduct)
     }
 
-    override suspend fun editProduct(id: Int, name: String, description: String, price: Float): Boolean = dbQuery {
+    override suspend fun editProduct(
+        id: Int,
+        name: String,
+        description: String,
+        price: Float,
+        categoryCode: String
+    ): Boolean = dbQuery {
         Products.update({ Products.id eq id }) {
             it[Products.name] = name
             it[Products.description] = description
             it[Products.price] = price
+            it[Products.categoryCode] = categoryCode
         } > 0
     }
 
