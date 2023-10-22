@@ -28,10 +28,10 @@ fun Route.productRouting() {
         post {
             val productData = call.receive<Product>()
             productDao.addNewProduct(
-                productData.name,
-                productData.description,
-                productData.price,
-                productData.categoryCode,
+                productData.name!!,
+                productData.description!!,
+                productData.price!!,
+                productData.categoryCode!!,
             )
 
             call.respondText(

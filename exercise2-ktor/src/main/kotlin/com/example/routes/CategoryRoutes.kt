@@ -27,8 +27,8 @@ fun Route.categoryRouting() {
         post {
             val categoryData = call.receive<Category>()
             categoryDao.addNewCategory(
-                categoryData.name,
-                categoryData.code,
+                categoryData.name!!,
+                categoryData.code!!,
                 categoryData.description
             )
 

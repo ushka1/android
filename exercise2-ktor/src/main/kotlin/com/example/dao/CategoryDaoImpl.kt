@@ -36,11 +36,17 @@ class CategoryDaoImpl : CategoryDao {
         insertStatement.resultedValues?.singleOrNull()?.let(::resultRowToCategory)
     }
 
-    override suspend fun editCategory(id: Int, name: String, code: String, description: String?): Boolean = dbQuery {
+    override suspend fun editCategory(id: Int, name: String?, code: String?, description: String?): Boolean = dbQuery {
         Categories.update({ Categories.id eq id }) {
-            it[Categories.name] = name
-            it[Categories.code] = code
-            it[Categories.description] = description
+            if (name != null) {
+                it[Categories.name] = name
+            }
+            if (code != null) {
+                it[Categories.code] = code
+            }
+            if (description != null) {
+                it[Categories.description] = description
+            }
         } > 0
     }
 

@@ -7,8 +7,8 @@ import org.jetbrains.exposed.sql.Table
 @Serializable
 data class Category(
     val id: Int? = null,
-    val name: String,
-    val code: String,
+    val name: String? = null,
+    val code: String? = null,
     val description: String? = null,
 )
 

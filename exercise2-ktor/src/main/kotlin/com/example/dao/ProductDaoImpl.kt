@@ -44,16 +44,24 @@ class ProductDaoImpl : ProductDao {
 
     override suspend fun editProduct(
         id: Int,
-        name: String,
-        description: String,
-        price: Float,
-        categoryCode: String
+        name: String?,
+        description: String?,
+        price: Float?,
+        categoryCode: String?
     ): Boolean = dbQuery {
         Products.update({ Products.id eq id }) {
-            it[Products.name] = name
-            it[Products.description] = description
-            it[Products.price] = price
-            it[Products.categoryCode] = categoryCode
+            if (name != null) {
+                it[Products.name] = name
+            }
+            if (description != null) {
+                it[Products.description] = description
+            }
+            if (price != null) {
+                it[Products.price] = price
+            }
+            if (categoryCode != null) {
+                it[Products.categoryCode] = categoryCode
+            }
         } > 0
     }
 

@@ -7,10 +7,10 @@ import org.jetbrains.exposed.sql.Table
 @Serializable
 data class Product(
     val id: Int? = null,
-    val name: String,
-    val description: String,
-    val price: Float,
-    val categoryCode: String
+    val name: String? = null,
+    val description: String? = null,
+    val price: Float? = null,
+    val categoryCode: String? = null,
 )
 
 object Products : Table() {
