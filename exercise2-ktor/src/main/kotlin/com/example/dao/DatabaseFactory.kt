@@ -1,5 +1,6 @@
 package com.example.dao
 
+import com.example.models.Categories
 import com.example.models.Products
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
@@ -13,6 +14,7 @@ object DatabaseFactory {
         val jdbcURL = "jdbc:h2:file:./build/db"
         val database = Database.connect(jdbcURL, driverClassName)
         transaction(database) {
+            SchemaUtils.create(Categories)
             SchemaUtils.create(Products)
         }
     }
