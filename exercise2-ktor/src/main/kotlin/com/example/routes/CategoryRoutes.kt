@@ -28,6 +28,8 @@ fun Route.categoryRouting() {
             val categoryData = call.receive<Category>()
             categoryDao.addNewCategory(
                 categoryData.name,
+                categoryData.code,
+                categoryData.description
             )
 
             call.respondText(
@@ -45,6 +47,8 @@ fun Route.categoryRouting() {
             val res = categoryDao.editCategory(
                 id,
                 categoryData.name,
+                categoryData.code,
+                categoryData.description
             )
 
             if (res) {

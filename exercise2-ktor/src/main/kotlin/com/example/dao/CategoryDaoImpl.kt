@@ -10,6 +10,8 @@ class CategoryDaoImpl : CategoryDao {
     private fun resultRowToCategory(row: ResultRow) = Category(
         id = row[Categories.id],
         name = row[Categories.name],
+        code = row[Categories.code],
+        description = row[Categories.description]
     )
 
 
@@ -24,17 +26,21 @@ class CategoryDaoImpl : CategoryDao {
             .singleOrNull()
     }
 
-    override suspend fun addNewCategory(name: String): Category? = dbQuery {
+    override suspend fun addNewCategory(name: String, code: String, description: String?): Category? = dbQuery {
         val insertStatement = Categories.insert {
             it[Categories.name] = name
+            it[Categories.code] = code
+            it[Categories.description] = description
         }
 
         insertStatement.resultedValues?.singleOrNull()?.let(::resultRowToCategory)
     }
 
-    override suspend fun editCategory(id: Int, name: String): Boolean = dbQuery {
+    override suspend fun editCategory(id: Int, name: String, code: String, description: String?): Boolean = dbQuery {
         Categories.update({ Categories.id eq id }) {
             it[Categories.name] = name
+            it[Categories.code] = code
+            it[Categories.description] = description
         } > 0
     }
 
