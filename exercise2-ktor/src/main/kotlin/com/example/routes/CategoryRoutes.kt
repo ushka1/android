@@ -4,12 +4,17 @@ import com.example.dao.categoryDao
 import com.example.models.Category
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.categoryRouting() {
     route("/category") {
+        install(CORS) {
+            allowHost("localhost")
+            allowHost("example.com")
+        }
         get {
             call.respond(categoryDao.allCategories())
         }
