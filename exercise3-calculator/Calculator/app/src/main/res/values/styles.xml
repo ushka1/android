@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PrimaryButton">
+        <item name="android:textColor">@color/onPrimary</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:paddingVertical">20dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:background">@drawable/squared_button</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="SecondaryButton">
+        <item name="android:textColor">@color/onSecondary</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:paddingVertical">20dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:background">@drawable/squared_button</item>
+        <item name="backgroundTint">@color/secondary</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="TertiaryButton">
+        <item name="android:textColor">@color/onError</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:paddingVertical">20dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:background">@drawable/squared_button</item>
+        <item name="backgroundTint">@color/error</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+</resources>
