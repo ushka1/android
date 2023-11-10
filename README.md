@@ -7,5 +7,9 @@
 
 - Exercise 2 - KTOR
 
-  - [Exercise files](./exercise1)
+  - [Exercise files](./exercise2-ktor)
   - [Dockerhub image](https://hub.docker.com/r/ushka1/android-class-exercise2-ktor)
+
+- Exercise 3 - Calculator
+
+- [Exercise files](./exercise3-calculator/Calculator)
