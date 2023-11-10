@@ -12,4 +12,4 @@
 
 - Exercise 3 - Calculator
 
-- [Exercise files](./exercise3-calculator/Calculator)
+  - [Exercise files](./exercise3-calculator/Calculator)
