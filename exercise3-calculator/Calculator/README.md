@@ -4,14 +4,6 @@
 
 Android calculator app.
 
-<center>
-  <img
-    src="./docs/image.jpg"
-    alt="screenshot"
-    height="400"
-  />
-</center>
-
 ## Project notes
 
 1. The calculator provides the following functions:
@@ -28,3 +20,29 @@ Android calculator app.
    - Perform operations on the current result
    - Clear the result
    - Use the backspace for corrections
+
+## Screenshots
+
+### Phone
+
+<img
+    src="./docs/phone.png"
+    alt="phone"
+    height="300"
+/>
+
+### Tablet Vertical
+
+<img
+    src="./docs/tablet_vertical.png"
+    alt="screenshot"
+    height="300"
+/>
+
+### Tablet Horizontal
+
+<img
+    src="./docs/tablet_horizontal.png"
+    alt="screenshot"
+    height="300"
+/>
