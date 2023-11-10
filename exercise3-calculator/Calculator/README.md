@@ -4,7 +4,13 @@
 
 Android calculator app.
 
-![screenshot](./docs/image.jpg)
+<center>
+  <img
+    src="./docs/image.jpg"
+    alt="screenshot"
+    height="400"
+  />
+</center>
 
 ## Project notes
 
