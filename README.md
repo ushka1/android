@@ -13,3 +13,7 @@
 - Exercise 3 - Calculator
 
   - [Exercise files](./exercise3-calculator/Calculator)
+
+- Exercise 4 - Todo List
+  
+  - [Exercise files](./exercise4-todo-list/TodoList)
