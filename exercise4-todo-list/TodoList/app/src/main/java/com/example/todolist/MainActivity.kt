@@ -5,28 +5,30 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.data.TaskDatasource
 import com.example.todolist.data.TaskItem
 import com.example.todolist.data.TaskRepository
-import com.example.todolist.ui.TaskListAdapter
+import com.example.todolist.ui.TaskAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    private val taskRepository = TaskRepository()
-    private val adapter = TaskListAdapter(taskRepository.getAllTasks())
+    private val datasource = TaskDatasource()
+    private val repository = TaskRepository(datasource)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupRecyclerView()
         setupBottomSheet()
-        setupRecycler()
     }
 
 
-    private fun setupRecycler() {
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+    private fun setupRecyclerView() {
+        val adapter = TaskAdapter(repository.getAllTasks())
+        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         recyclerView.adapter = adapter
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -40,21 +42,22 @@ class MainActivity : AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val deletedTask: TaskItem = taskRepository.getAllTasks()[position]
+                val deletedTask: TaskItem = repository.getAllTasks()[position]
 
-                taskRepository.removeTask(deletedTask)
+                repository.removeTask(deletedTask.id)
                 adapter.notifyItemRemoved(position)
             }
         }).attachToRecyclerView(recyclerView)
     }
 
     private fun setupBottomSheet() {
-        val openBottomSheetButton = findViewById<FloatingActionButton>(R.id.openBottomSheetButton)
+        val openBottomSheetButton =
+            findViewById<FloatingActionButton>(R.id.open_bottom_sheet_button)
         openBottomSheetButton.setOnClickListener {
             val dialog = BottomSheetDialog(this)
             val view = layoutInflater.inflate(R.layout.fragment_add_task_sheet, null)
 
-            val closeBottomSheetButton = view.findViewById<Button>(R.id.closeBottomSheetButton)
+            val closeBottomSheetButton = view.findViewById<Button>(R.id.close_bottom_sheet_button)
             closeBottomSheetButton.setOnClickListener {
                 dialog.dismiss()
             }
