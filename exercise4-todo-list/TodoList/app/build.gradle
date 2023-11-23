@@ -7,7 +7,10 @@ android {
     namespace 'com.example.todolist'
     compileSdk 33
     dataBinding {
-        enabled = true
+        enabled true
+    }
+    buildFeatures {
+        viewBinding true
     }
 
     defaultConfig {

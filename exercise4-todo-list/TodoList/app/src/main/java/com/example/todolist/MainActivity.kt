@@ -44,14 +44,6 @@ class MainActivity : AppCompatActivity() {
 
                 taskRepository.removeTask(deletedTask)
                 adapter.notifyItemRemoved(position)
-
-//                Snackbar.make(recyclerView, "Deleted " + deletedTask.name, Snackbar.LENGTH_LONG)
-//                    .setAction(
-//                        "Undo",
-//                        View.OnClickListener {
-//                            taskController.addTask(position, deletedTask)
-//                            adapter.notifyItemInserted(position)
-//                        }).show()
             }
         }).attachToRecyclerView(recyclerView)
     }
@@ -60,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         val openBottomSheetButton = findViewById<FloatingActionButton>(R.id.openBottomSheetButton)
         openBottomSheetButton.setOnClickListener {
             val dialog = BottomSheetDialog(this)
-            val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
+            val view = layoutInflater.inflate(R.layout.fragment_add_task_sheet, null)
 
             val closeBottomSheetButton = view.findViewById<Button>(R.id.closeBottomSheetButton)
             closeBottomSheetButton.setOnClickListener {

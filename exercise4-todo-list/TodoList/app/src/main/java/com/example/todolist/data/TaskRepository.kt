@@ -22,7 +22,7 @@ class TaskRepository {
             name = "Optimize Database Queries",
             description = "Optimize database queries for improved application performance.",
             createdAt = createDate(2023, 11, 14, 9, 0),
-            completed = false
+            completed = true
         ),
         TaskItem(
             name = "Coordinate Sprint Planning",
@@ -40,7 +40,7 @@ class TaskRepository {
             name = "Refactor Legacy Code",
             description = "Initiate refactoring of legacy code to enhance code quality.",
             createdAt = createDate(2023, 11, 13, 13, 15),
-            completed = false
+            completed = true
         ),
         TaskItem(
             name = "Prepare Presentation for Team Meeting",
@@ -52,7 +52,7 @@ class TaskRepository {
             name = "Review Project Timeline",
             description = "Review and update the project timeline based on recent changes.",
             createdAt = createDate(2023, 11, 22, 14, 0),
-            completed = false
+            completed = true
         )
     )
 
