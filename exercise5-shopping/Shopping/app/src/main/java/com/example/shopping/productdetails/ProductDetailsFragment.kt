@@ -55,7 +55,7 @@ class ProductDetailsFragment : Fragment() {
                 val descriptionView: TextView = view.findViewById(R.id.product_description)
                 descriptionView.text = product.description
 
-                val addToCartButton: Button = view.findViewById(R.id.add_to_cart_button)
+                val addToCartButton: Button = view.findViewById(R.id.add_to_cart)
             }
         }
     }

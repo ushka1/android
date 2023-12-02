@@ -17,7 +17,7 @@ class ProductAdapter(private val productList: List<Product>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.product_card, parent, false
+            R.layout.item_product, parent, false
         )
         return ProductViewHolder(view)
     }
@@ -49,7 +49,7 @@ class ProductAdapter(private val productList: List<Product>) :
         val authorView: TextView = productView.findViewById(R.id.product_author)
         val imageView: ImageView = productView.findViewById(R.id.product_image)
         val priceView: TextView = productView.findViewById(R.id.product_price)
-        val addToCartButton: Button = productView.findViewById(R.id.add_to_cart_button)
+        val addToCartButton: Button = productView.findViewById(R.id.add_to_cart)
     }
 
 }

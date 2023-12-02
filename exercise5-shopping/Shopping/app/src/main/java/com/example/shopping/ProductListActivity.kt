@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping.product.ProductAdapter
 import com.example.shopping.product.ProductRepository
 
-class MainActivity : AppCompatActivity() {
+class ProductListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_product_list)
 
         val productRecyclerView = findViewById<RecyclerView>(R.id.product_recycler_view)
         val productLayoutManger = LinearLayoutManager(this)

@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ProductListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/product_card" />
+        android:padding="8dp"
+        tools:listitem="@layout/item_product" />
 
 </LinearLayout>
