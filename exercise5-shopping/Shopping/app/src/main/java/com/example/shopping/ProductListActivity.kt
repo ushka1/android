@@ -14,6 +14,8 @@ class ProductListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_list)
 
+        title = "Paintings Copies Gallery"
+
         val productRecyclerView = findViewById<RecyclerView>(R.id.product_recycler_view)
         val productLayoutManger = LinearLayoutManager(this)
         productRecyclerView.layoutManager = productLayoutManger

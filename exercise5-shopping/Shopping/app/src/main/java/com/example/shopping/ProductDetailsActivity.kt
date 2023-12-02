@@ -10,10 +10,12 @@ class ProductDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
 
+        title = "Painting Details"
+
         val productId = intent.getStringExtra("productId")
         if (productId != null) {
             val fragment = ProductDetailsFragment.newInstance(productId)
-            
+
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit()
