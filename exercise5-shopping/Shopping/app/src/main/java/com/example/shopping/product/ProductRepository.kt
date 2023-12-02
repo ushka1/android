@@ -1,7 +1,6 @@
 package com.example.shopping.product
 
 import com.example.shopping.R
-import java.util.UUID
 
 class ProductRepository private constructor() {
 
@@ -62,7 +61,7 @@ class ProductRepository private constructor() {
         return products
     }
 
-    fun getProductById(id: UUID): Product? {
+    fun getProductById(id: String): Product? {
         return products.find { it.id == id }
     }
 
