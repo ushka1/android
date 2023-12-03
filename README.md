@@ -15,5 +15,9 @@
   - [Exercise files](./exercise3-calculator/Calculator)
 
 - Exercise 4 - Todo List
-  
+
   - [Exercise files](./exercise4-todo-list/TodoList)
+
+- Exercise 5 - Shopping App
+
+  - [Exercise files](./exercise5-shopping/Shopping)
