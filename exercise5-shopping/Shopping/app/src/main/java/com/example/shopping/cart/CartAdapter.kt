@@ -3,6 +3,7 @@ package com.example.shopping.cart;
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.LiveData
@@ -27,6 +28,7 @@ public class CartAdapter(
         val productNameView: TextView = cartView.findViewById(R.id.product_name)
         val totalPriceView: TextView = cartView.findViewById(R.id.total_price)
         val quantityView: EditText = cartView.findViewById(R.id.product_quantity)
+        val quantityButton: Button = cartView.findViewById(R.id.product_quantity_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -49,14 +51,18 @@ public class CartAdapter(
             holder.totalPriceView.text = "$formattedPrice$"
 
             holder.quantityView.setText(item.quantity.toString())
-//            val text = s.toString()
-//            val quantity: Int = try {
-//                text.toInt()
-//            } catch (e: NumberFormatException) {
-//                0
-//            }
-//            itemListener.onProductQuantityChanged(item.product.id, quantity)
+            holder.quantityButton.setOnClickListener {
+                val value = holder.quantityView.text.toString()
+                val updatedQuantity: Int = try {
+                    value.toInt()
+                } catch (e: NumberFormatException) {
+                    0
+                }
+
+                itemListener.onProductQuantityChanged(item.product.id, updatedQuantity)
+            }
         }
     }
+
 
 }
