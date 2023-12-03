@@ -4,6 +4,21 @@ import com.example.shopping.product.Product
 
 class Cart() {
 
+    companion object {
+        @Volatile
+        private var instance: Cart? = null
+        fun getInstance(): Cart {
+            if (instance == null) {
+                synchronized(this) {
+                    if (instance == null) {
+                        instance = Cart()
+                    }
+                }
+            }
+            return instance!!
+        }
+    }
+
     inner class CartItem(
         val product: Product,
         var quanitity: Int
@@ -11,22 +26,26 @@ class Cart() {
 
     private val items: MutableList<CartItem> = mutableListOf()
 
-    fun getCartItems(): List<CartItem> {
+    fun getItems(): List<CartItem> {
         return items
     }
 
-    fun addProduct(product: Product, quantity: Int = 1) {
+    fun addItem(product: Product, quantity: Int = 1) {
         items.add(CartItem(product, quantity))
     }
 
-    fun removeProduct(product: Product) {
+    fun removeItem(product: Product) {
         items.removeIf { it.product == product }
     }
 
-    fun updateProductQuantity(product: Product, quantity: Int) {
+    fun updateItemQuantity(product: Product, quantity: Int) {
         val item = items.find { it.product == product }
         if (item != null) {
-            item.quanitity = quantity
+            if (quantity > 0) {
+                item.quanitity = quantity
+            } else {
+                removeItem(item.product)
+            }
         }
     }
 

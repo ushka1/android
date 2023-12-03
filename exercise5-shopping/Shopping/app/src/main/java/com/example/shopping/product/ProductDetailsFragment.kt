@@ -1,4 +1,4 @@
-package com.example.shopping.productdetails
+package com.example.shopping.product
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.shopping.R
-import com.example.shopping.product.ProductRepository
 
 class ProductDetailsFragment : Fragment() {
 

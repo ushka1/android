@@ -2,7 +2,7 @@ package com.example.shopping
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.shopping.productdetails.ProductDetailsFragment
+import com.example.shopping.product.ProductDetailsFragment
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -10,7 +10,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
 
-        title = "Painting Details"
+        title = "Product Details"
 
         val productId = intent.getStringExtra("productId")
         if (productId != null) {
