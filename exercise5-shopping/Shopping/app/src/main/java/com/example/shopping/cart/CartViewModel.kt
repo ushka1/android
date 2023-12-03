@@ -11,12 +11,16 @@ class CartViewModel : ViewModel() {
 
     val cartItems = MutableLiveData(cart.getItems())
 
+    fun reloadItems() {
+        cartItems.value = cart.getItems()
+    }
+
     fun addProductToCart(productId: String, quantity: Int = 1) {
         val product = productRepository.getProductById(productId)
 
         if (product != null && quantity > 0) {
             cart.addItem(product, quantity)
-            cartItems.value = cart.getItems()
+            reloadItems()
         }
     }
 
@@ -25,7 +29,7 @@ class CartViewModel : ViewModel() {
 
         if (product != null) {
             cart.updateItemQuantity(product, quantity)
-            cartItems.value = cart.getItems()
+            reloadItems()
         }
     }
 
@@ -34,7 +38,7 @@ class CartViewModel : ViewModel() {
 
         if (product != null) {
             cart.updateItemQuantity(product, 0)
-            cartItems.value = cart.getItems()
+            reloadItems()
         }
     }
 

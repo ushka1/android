@@ -1,17 +1,21 @@
-package com.example.shopping
+package com.example.shopping.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.shopping.cart.CartFragment
+import com.example.shopping.cart.CartViewModel
 import com.example.shopping.product.ProductListFragment
 
-class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class MainPagerAdapter(
+    private val fragmentManager: FragmentManager,
+    private val cartViewModel: CartViewModel
+) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> ProductListFragment()
-            1 -> CartFragment()
+            0 -> ProductListFragment(cartViewModel)
+            1 -> CartFragment(cartViewModel)
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }

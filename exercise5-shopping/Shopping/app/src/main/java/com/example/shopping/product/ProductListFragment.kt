@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping.R
+import com.example.shopping.cart.CartViewModel
 
-class ProductListFragment : Fragment() {
+class ProductListFragment(
+    private val cartViewModel: CartViewModel
+) : Fragment(), ProductItemListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +26,7 @@ class ProductListFragment : Fragment() {
         productRecyclerView.layoutManager = productLayoutManger
 
         val productList = ProductRepository.getInstance().getAllProducts()
-        val adapter = ProductAdapter(productList)
+        val adapter = ProductAdapter(productList, this)
         productRecyclerView.adapter = adapter
 
 //        val dividerDrawable = ContextCompat.getDrawable(view.context, R.drawable.line_divider)
@@ -37,6 +40,10 @@ class ProductListFragment : Fragment() {
 //        productRecyclerView.addItemDecoration(dividerItemDecoration, -1)
 
         return view
+    }
+
+    override fun onProductAddedToCart(productId: String) {
+        cartViewModel.addProductToCart(productId)
     }
 
 }

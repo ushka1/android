@@ -10,12 +10,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.shopping.R
+import com.example.shopping.cart.CartViewModel
 
-class ProductDetailsFragment : Fragment() {
+class ProductDetailsFragment(private val cartViewModel: CartViewModel) : Fragment() {
 
     companion object {
-        fun newInstance(productId: String): ProductDetailsFragment {
-            val fragment = ProductDetailsFragment()
+        fun newInstance(productId: String, cartViewModel: CartViewModel): ProductDetailsFragment {
+            val fragment = ProductDetailsFragment(cartViewModel)
             val args = Bundle()
             args.putString("productId", productId)
             fragment.arguments = args
@@ -55,6 +56,9 @@ class ProductDetailsFragment : Fragment() {
                 descriptionView.text = product.description
 
                 val addToCartButton: Button = view.findViewById(R.id.add_to_cart)
+                addToCartButton.setOnClickListener {
+                    cartViewModel.addProductToCart(productId)
+                }
             }
         }
     }

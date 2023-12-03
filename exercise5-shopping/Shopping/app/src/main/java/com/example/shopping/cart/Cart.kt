@@ -21,7 +21,7 @@ class Cart() {
 
     inner class CartItem(
         val product: Product,
-        var quanitity: Int
+        var quantity: Int
     )
 
     private val items: MutableList<CartItem> = mutableListOf()
@@ -31,7 +31,13 @@ class Cart() {
     }
 
     fun addItem(product: Product, quantity: Int = 1) {
-        items.add(CartItem(product, quantity))
+        val item = items.find { it.product == product }
+        if (item != null) {
+            updateItemQuantity(item.product, item.quantity + 1)
+        } else {
+            items.add(CartItem(product, quantity))
+        }
+
     }
 
     fun removeItem(product: Product) {
@@ -42,7 +48,7 @@ class Cart() {
         val item = items.find { it.product == product }
         if (item != null) {
             if (quantity > 0) {
-                item.quanitity = quantity
+                item.quantity = quantity
             } else {
                 removeItem(item.product)
             }

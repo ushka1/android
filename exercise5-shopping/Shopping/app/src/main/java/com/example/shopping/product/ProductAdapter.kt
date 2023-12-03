@@ -12,7 +12,10 @@ import com.example.shopping.ProductDetailsActivity
 import com.example.shopping.R
 
 
-class ProductAdapter(private val productList: List<Product>) :
+class ProductAdapter(
+    private val productList: List<Product>,
+    private val itemListener: ProductItemListener
+) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -39,7 +42,7 @@ class ProductAdapter(private val productList: List<Product>) :
         holder.imageView.setImageResource(product.imageResourceId)
         holder.priceView.text = "${product.price}$"
         holder.addToCartButton.setOnClickListener {
-            println("ADD TO CART: ${product.name}")
+            itemListener.onProductAddedToCart(product.id)
         }
     }
 
