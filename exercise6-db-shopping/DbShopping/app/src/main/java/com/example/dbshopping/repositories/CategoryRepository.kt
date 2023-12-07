@@ -4,7 +4,20 @@ import com.example.dbshopping.models.Category
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class CategoryRepository {
+class CategoryRepository private constructor() {
+    companion object {
+        @Volatile
+        private var INSTANCE: CategoryRepository? = null
+
+        fun getInstance(): CategoryRepository {
+            return INSTANCE ?: synchronized(this) {
+                val instance = CategoryRepository()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+
     private val db = FirebaseFirestore.getInstance()
     private val categoryCollection = db.collection("categories")
 
