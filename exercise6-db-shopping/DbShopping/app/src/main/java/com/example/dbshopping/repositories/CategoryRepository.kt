@@ -21,10 +21,9 @@ class CategoryRepository private constructor() {
     private val db = FirebaseFirestore.getInstance()
     private val categoryCollection = db.collection("categories")
 
-    suspend fun addCategory(category: Category) {
-        category.id?.let {
-            categoryCollection.document(it).set(category).await()
-        }
+    suspend fun addCategory(category: Category): String {
+        val document = categoryCollection.add(category).await()
+        return document.id
     }
 
     suspend fun getCategory(id: String): Category? {

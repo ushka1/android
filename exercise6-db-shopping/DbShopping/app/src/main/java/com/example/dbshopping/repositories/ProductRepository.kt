@@ -22,10 +22,9 @@ class ProductRepository private constructor() {
     private val db = FirebaseFirestore.getInstance()
     private val productCollection = db.collection("products")
 
-    suspend fun addProduct(product: Product) {
-        product.id?.let {
-            productCollection.document(it).set(product).await()
-        }
+    suspend fun addProduct(product: Product): String {
+        val document = productCollection.add(product).await()
+        return document.id
     }
 
     suspend fun getProduct(id: String): Product? {

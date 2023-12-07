@@ -21,10 +21,9 @@ class CustomerRepository private constructor() {
     private val db = FirebaseFirestore.getInstance()
     private val customerCollection = db.collection("customers")
 
-    suspend fun addCustomer(customer: Customer) {
-        customer.id?.let {
-            customerCollection.document(it).set(customer).await()
-        }
+    suspend fun addCustomer(customer: Customer): String {
+        val document = customerCollection.add(customer).await()
+        return document.id
     }
 
     suspend fun getCustomer(id: String): Customer? {
