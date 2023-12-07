@@ -1,6 +1,6 @@
 package com.example.dbshopping.models
 
-data class Category(
+data class Cart(
     var id: String? = null,
-    var name: String? = null,
+    var products: List<Product>? = null
 )
