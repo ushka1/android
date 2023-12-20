@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "470651475054",
+    "project_id": "netshopping-93fa0",
+    "storage_bucket": "netshopping-93fa0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470651475054:android:2d39f73d58fb4d785fc27f",
+        "android_client_info": {
+          "package_name": "com.example.netshopping"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5pd0IRqRXgLBz-nSWOnVctSXYlVLRT4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
