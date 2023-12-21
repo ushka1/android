@@ -1,6 +1,7 @@
-package com.example.netshopping.adapters
+package com.example.netshopping.category
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,17 +9,23 @@ import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.netshopping.R
-import com.example.netshopping.models.Category
 
 @SuppressLint("NotifyDataSetChanged")
-class CategoryAdapter(private val items: LiveData<List<Category>>) :
+class CategoryAdapter(
+    private val categories: LiveData<List<Category>>,
+    private val selectedCategoryId: LiveData<String?>,
+    private val listener: CategoryItemListener
+) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     init {
-        items.observeForever { newItems ->
+        categories.observeForever { newItems ->
             newItems?.let {
                 notifyDataSetChanged()
             }
+        }
+        selectedCategoryId.observeForever {
+            notifyDataSetChanged()
         }
     }
 
@@ -30,14 +37,14 @@ class CategoryAdapter(private val items: LiveData<List<Category>>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items.value?.get(position)
+        val item = categories.value?.get(position)
         if (item != null) {
             holder.bind(item)
         }
     }
 
     override fun getItemCount(): Int {
-        return items.value?.size ?: 0
+        return categories.value?.size ?: 0
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -45,6 +52,18 @@ class CategoryAdapter(private val items: LiveData<List<Category>>) :
 
         fun bind(item: Category) {
             textView.text = item.name
+            textView.setOnClickListener {
+                if (item.id != null) {
+                    listener.onCategorySelect(item.id!!)
+                }
+            }
+
+            if (item.id == selectedCategoryId.value) {
+                textView.setTypeface(null, Typeface.BOLD)
+            } else {
+                textView.setTypeface(null, Typeface.NORMAL)
+            }
         }
     }
+
 }

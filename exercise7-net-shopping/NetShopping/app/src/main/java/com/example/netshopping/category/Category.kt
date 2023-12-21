@@ -1,4 +1,4 @@
-package com.example.netshopping.models
+package com.example.netshopping.category
 
 data class Category(
     var id: String? = null,

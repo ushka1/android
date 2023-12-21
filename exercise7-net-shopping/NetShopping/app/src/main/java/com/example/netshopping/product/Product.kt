@@ -1,4 +1,4 @@
-package com.example.netshopping.models
+package com.example.netshopping.product
 
 data class Product(
     var id: String? = null,

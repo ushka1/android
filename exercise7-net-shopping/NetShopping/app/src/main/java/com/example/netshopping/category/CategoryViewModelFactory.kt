@@ -1,8 +1,7 @@
-package com.example.netshopping.viewmodels
+package com.example.netshopping.category
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.netshopping.repositories.CategoryRepository
 
 class CategoryViewModelFactory(private val categoryRepository: CategoryRepository) :
     ViewModelProvider.Factory {
@@ -12,7 +11,7 @@ class CategoryViewModelFactory(private val categoryRepository: CategoryRepositor
             @Suppress("UNCHECKED_CAST")
             return CategoryViewModel(categoryRepository) as T
         }
-        
+
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 
