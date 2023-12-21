@@ -20,7 +20,10 @@ import com.example.netshopping.product.ProductRepository
 import com.example.netshopping.product.ProductViewModel
 import com.example.netshopping.product.ProductViewModelFactory
 
-class ProductAddActivity : AppCompatActivity() {
+class AddProductActivity : AppCompatActivity() {
+
+    private lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var productViewModel: ProductViewModel
 
     private lateinit var nameEditText: EditText
     private lateinit var descriptionEditText: EditText
@@ -30,18 +33,28 @@ class ProductAddActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_add)
+        setContentView(R.layout.activity_add_product)
 
+        initElements()
+        setupCategory()
+        setupProduct()
+        setupSubmit()
+    }
+
+    private fun initElements() {
         nameEditText = findViewById(R.id.name)
         descriptionEditText = findViewById(R.id.description)
         priceEditText = findViewById(R.id.price)
         categorySpinner = findViewById(R.id.category)
         submitButton = findViewById(R.id.submit_button)
+    }
 
-        val repository = CategoryRepository.getInstance()
-        val viewModelFactory = CategoryViewModelFactory(repository)
-        val viewModel = ViewModelProvider(this, viewModelFactory)[CategoryViewModel::class.java]
-        viewModel.categories.observe(this, Observer { categories ->
+    private fun setupCategory() {
+        val categoryRepository = CategoryRepository.getInstance()
+        val categoryViewModelFactory = CategoryViewModelFactory(categoryRepository)
+        categoryViewModel =
+            ViewModelProvider(this, categoryViewModelFactory)[CategoryViewModel::class.java]
+        categoryViewModel.categories.observe(this, Observer { categories ->
             val adapter = object :
                 ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, categories) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -64,12 +77,16 @@ class ProductAddActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             categorySpinner.adapter = adapter
         })
+    }
 
-        val productsRepository = ProductRepository.getInstance()
-        val productsViewModelFactory = ProductViewModelFactory(productsRepository)
-        val productsViewModel =
-            ViewModelProvider(this, productsViewModelFactory)[ProductViewModel::class.java]
+    private fun setupProduct() {
+        val productRepository = ProductRepository.getInstance()
+        val productViewModelFactory = ProductViewModelFactory(productRepository)
+        productViewModel =
+            ViewModelProvider(this, productViewModelFactory)[ProductViewModel::class.java]
+    }
 
+    private fun setupSubmit() {
         submitButton.setOnClickListener {
             val name = nameEditText.text.toString()
             val description = descriptionEditText.text.toString()
@@ -78,10 +95,10 @@ class ProductAddActivity : AppCompatActivity() {
 
             if (name.isEmpty() || description.isEmpty() || price == null || category.id == null) {
                 Toast
-                    .makeText(this, "All fields must be filled", Toast.LENGTH_SHORT)
+                    .makeText(this, getText(R.string.all_fields_required), Toast.LENGTH_SHORT)
                     .show()
             } else {
-                productsViewModel.addProduct(
+                productViewModel.addProduct(
                     name = name,
                     description = description,
                     price = price,

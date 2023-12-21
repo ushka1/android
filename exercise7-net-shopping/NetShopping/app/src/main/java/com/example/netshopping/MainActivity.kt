@@ -26,54 +26,57 @@ class MainActivity : AppCompatActivity(), CategoryItemListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupCategories()
-        setupProducts()
-
-        val button: FloatingActionButton = findViewById(R.id.add_product_button)
-        button.setOnClickListener {
-            val intent = Intent(this, ProductAddActivity::class.java)
-            startActivity(intent)
-        }
+        setupCategory()
+        setupProduct()
+        setupFAB()
     }
 
     override fun onResume() {
         super.onResume()
-
         productViewModel.refetchProducts()
     }
-
 
     override fun onCategorySelect(categoryId: String) {
         categoryViewModel.selectCategory(categoryId)
     }
 
-    private fun setupCategories() {
-        val repository = CategoryRepository.getInstance()
-        val viewModelFactory = CategoryViewModelFactory(repository)
-        categoryViewModel = ViewModelProvider(this, viewModelFactory)[CategoryViewModel::class.java]
+    private fun setupCategory() {
+        val categoryRepository = CategoryRepository.getInstance()
+        val categoryViewModelFactory = CategoryViewModelFactory(categoryRepository)
+        categoryViewModel =
+            ViewModelProvider(this, categoryViewModelFactory)[CategoryViewModel::class.java]
 
-        val adapter = CategoryAdapter(
+        val categoryAdapter = CategoryAdapter(
             categoryViewModel.categories,
             categoryViewModel.selectedCategoryId,
             this
         )
-        val recyclerView = findViewById<RecyclerView>(R.id.categories_recycler)
-        recyclerView.adapter = adapter
+        val categoryRecyclerView = findViewById<RecyclerView>(R.id.categories_recycler)
+        categoryRecyclerView.adapter = categoryAdapter
     }
 
 
-    private fun setupProducts() {
-        val repository = ProductRepository.getInstance()
-        val viewModelFactory = ProductViewModelFactory(repository)
-        productViewModel = ViewModelProvider(this, viewModelFactory)[ProductViewModel::class.java]
+    private fun setupProduct() {
+        val productRepository = ProductRepository.getInstance()
+        val productViewModelFactory = ProductViewModelFactory(productRepository)
+        productViewModel =
+            ViewModelProvider(this, productViewModelFactory)[ProductViewModel::class.java]
 
-        val adapter = ProductAdapter(productViewModel.products)
-        val recyclerView = findViewById<RecyclerView>(R.id.products_recycler)
-        recyclerView.adapter = adapter
+        val productAdapter = ProductAdapter(productViewModel.products)
+        val productRecyclerView = findViewById<RecyclerView>(R.id.products_recycler)
+        productRecyclerView.adapter = productAdapter
 
         categoryViewModel.selectedCategoryId.observe(this, Observer { categoryId ->
             productViewModel.filterProductsByCategory(categoryId)
         })
+    }
+
+    private fun setupFAB() {
+        val button: FloatingActionButton = findViewById(R.id.add_product_button)
+        button.setOnClickListener {
+            val intent = Intent(this, AddProductActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

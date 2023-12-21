@@ -48,7 +48,7 @@ class ProductAdapter(private val items: LiveData<List<Product>>) :
         fun bind(item: Product) {
             nameTextView.text = item.name
             descriptionTextView.text = item.description
-            priceTextView.text = item.price.toString() + "$"
+            priceTextView.text = "${String.format("%.2f", item.price)}$"
         }
     }
 
