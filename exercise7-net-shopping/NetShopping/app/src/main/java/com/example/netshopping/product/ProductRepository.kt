@@ -3,6 +3,7 @@ package com.example.netshopping.product
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
+
 class ProductRepository private constructor() {
 
     companion object {
@@ -17,7 +18,6 @@ class ProductRepository private constructor() {
             }
         }
     }
-
 
     private val db = FirebaseFirestore.getInstance()
     private val productCollection = db.collection("products")
@@ -46,6 +46,7 @@ class ProductRepository private constructor() {
             product?.id = documentSnapshot.id
             product?.let { result.add(it) }
         }
+
         return result
     }
 

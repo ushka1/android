@@ -14,10 +14,27 @@ class ProductViewModel(private val productRepository: ProductRepository) : ViewM
     val products: LiveData<List<Product>> = _products
 
     init {
+        refetchProducts()
+    }
+
+    fun refetchProducts() {
         viewModelScope.launch {
-            val result = productRepository.getProducts()
-            originalProducts = result
-            _products.value = result
+            val products = productRepository.getProducts()
+            originalProducts = products
+            _products.value = products
+        }
+    }
+
+    fun addProduct(name: String, description: String, price: Double, categoryId: String) {
+        viewModelScope.launch {
+            val product =
+                Product(
+                    name = name,
+                    description = description,
+                    price = price,
+                    categoryId = categoryId
+                )
+            productRepository.addProduct(product)
         }
     }
 
@@ -29,4 +46,5 @@ class ProductViewModel(private val productRepository: ProductRepository) : ViewM
             _products.value = originalProducts
         }
     }
+
 }

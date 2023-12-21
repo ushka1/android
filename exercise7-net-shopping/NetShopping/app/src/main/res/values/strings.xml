@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Net Shopping</string>
+    <string name="add_product_title">Add New Product</string>
+    <string name="add_product_hint_name">Product Name</string>
+    <string name="add_product_hint_description">Description</string>
+    <string name="add_product_hint_price">Price</string>
+    <string name="add_product_button">Add Product</string>
 </resources>
