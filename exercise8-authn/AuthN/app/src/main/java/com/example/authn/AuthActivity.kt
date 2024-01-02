@@ -19,7 +19,6 @@ class AuthActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
 
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
             val intent = Intent(this, DashboardActivity::class.java)
@@ -31,6 +30,22 @@ class AuthActivity : AppCompatActivity() {
             transaction.replace(R.id.fragment_container, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
+
+            auth.addAuthStateListener(authStateListener)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        auth.removeAuthStateListener(authStateListener)
+    }
+
+    private val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+        val user = firebaseAuth.currentUser
+        if (user != null) {
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

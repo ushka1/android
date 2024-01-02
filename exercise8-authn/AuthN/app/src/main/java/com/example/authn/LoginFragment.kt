@@ -1,6 +1,5 @@
 package com.example.authn
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -63,12 +62,8 @@ class LoginFragment : Fragment() {
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
                     Log.i("ABC", "signInWithEmail:success", task.exception)
-
-                    val intent = Intent(activity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    activity.finish()
                 } else {
-                    Log.w("ABC", "signInWithEmail:failure", task.exception)
+                    Log.i("ABC", "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         context,
                         "Authentication failed.",

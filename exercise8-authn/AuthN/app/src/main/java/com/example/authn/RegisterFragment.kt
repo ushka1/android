@@ -1,6 +1,5 @@
 package com.example.authn
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -48,32 +47,38 @@ class RegisterFragment : Fragment() {
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
 
-        if (isValidEmail(email) && isValidPassword(password)) {
-            Log.w("ABC", "Email: $email")
-            Log.w("ABC", "Password: $password")
-
-            val activity = requireActivity()
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(activity) { task ->
-                    if (task.isSuccessful) {
-                        Log.i("ABC", "createUserWithEmail:success")
-
-                        val intent = Intent(activity, DashboardActivity::class.java)
-                        startActivity(intent)
-                        activity.finish()
-                    } else {
-                        Log.w("ABC", "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            context,
-                            "Authentication failed.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
-                }
-
-        } else {
-            println("Invalid email or password")
+        if (!isValidEmail(email)) {
+            Toast.makeText(
+                context,
+                "Invalid email.",
+                Toast.LENGTH_SHORT,
+            ).show()
+            return
         }
+
+        if (!isValidPassword(password)) {
+            Toast.makeText(
+                context,
+                "Invalid password (length<8).",
+                Toast.LENGTH_SHORT,
+            ).show()
+            return
+        }
+
+        val activity = requireActivity()
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(activity) { task ->
+                if (task.isSuccessful) {
+                    Log.i("ABC", "createUserWithEmail:success")
+                } else {
+                    Log.i("ABC", "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        context,
+                        "Authentication failed (${task.exception?.message}).",
+                        Toast.LENGTH_LONG,
+                    ).show()
+                }
+            }
     }
 
     private fun isValidEmail(email: String): Boolean {
