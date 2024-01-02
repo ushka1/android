@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">AuthN</string>
+    <string name="label_email">Email address</string>
+    <string name="input_hint_email">johndoe@mail.com</string>
+    <string name="label_password">Password</string>
+    <string name="input_hint_password">*****</string>
+
+    <string name="title_login">Login to your account</string>
+    <string name="button_text_login">Login</string>
+    <string name="button_text_switch_register">Switch to register</string>
+
+    <string name="title_register">Register new account</string>
+    <string name="button_text_register">Register</string>
+    <string name="button_text_switch_login">Switch to login</string>
+
+    <string name="title_dashboard">Dashboard</string>
+    <string name="text_dashboard">You are authenticated with the following credentials.</string>
+    <string name="button_text_logout">Logout</string>
 </resources>
