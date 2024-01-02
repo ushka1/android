@@ -1,5 +1,6 @@
 package com.example.authn
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Firebase
@@ -24,7 +25,9 @@ class AuthActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            println("User authenticated")
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
         } else {
             val fragment = LoginFragment()
             val transaction = supportFragmentManager.beginTransaction()
