@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "451782551370",
+    "project_id": "authn-3b6f8",
+    "storage_bucket": "authn-3b6f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451782551370:android:0ef338b04ee3bb2a8043b3",
+        "android_client_info": {
+          "package_name": "com.example.authn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE45g6lkf1mTsHvlMkr17Fry_cQSfJ17U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
