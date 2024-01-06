@@ -4,6 +4,8 @@
     <string name="input_hint_email">johndoe@mail.com</string>
     <string name="label_password">Password</string>
     <string name="input_hint_password">*****</string>
+    <string name="label_providers">ID providers</string>
+
 
     <string name="title_login">Login to your account</string>
     <string name="button_text_login">Login</string>
