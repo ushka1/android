@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
@@ -32,10 +34,16 @@ class LoginFragment : Fragment() {
             loginHandler()
         }
 
+        val googleLoginButton = view.findViewById<SignInButton>(R.id.button_google_login)
+        googleLoginButton.setOnClickListener {
+            googleLoginHandler()
+        }
+
         val switchRegisterButton = view.findViewById<Button>(R.id.button_switch_register)
         switchRegisterButton.setOnClickListener {
             switchRegisterHandler()
         }
+
 
         return view
     }
@@ -71,6 +79,18 @@ class LoginFragment : Fragment() {
                     ).show()
                 }
             }
+    }
+
+    private fun googleLoginHandler() {
+        val signInRequest = BeginSignInRequest.builder()
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    .setServerClientId(getString(R.string.web_client_id))
+                    .setFilterByAuthorizedAccounts(true)
+                    .build()
+            )
+            .build()
     }
 
     private fun switchRegisterHandler() {

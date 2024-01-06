@@ -16,4 +16,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="text_dashboard">You are authenticated with the following credentials.</string>
     <string name="button_text_logout">Logout</string>
+
+    <string name="web_client_id">451782551370-erj2u8bqso2nquf8dkbcf8lkgvnsg1o8.apps.googleusercontent.com</string>
 </resources>
