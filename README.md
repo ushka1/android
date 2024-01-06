@@ -29,3 +29,7 @@
 - Exercise 7 - Shopping App + Firestore
 
   - [Exercise files](./exercise7-net-shopping/NetShopping/)
+
+- Exercise 8 - AuthN
+
+  - [Exercise files](./exercise8-authn/AuthN/)
