@@ -56,4 +56,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/button_facebook_login"
+        android:layout_width="242dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -42,6 +43,7 @@ class DashboardActivity : AppCompatActivity() {
     private fun logoutHandler() {
         logoutFirebase()
         logoutGoogle()
+        logoutFacebook()
 
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
@@ -60,6 +62,10 @@ class DashboardActivity : AppCompatActivity() {
 
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
         googleSignInClient.signOut()
+    }
+
+    private fun logoutFacebook() {
+        LoginManager.getInstance().logOut();
     }
 
 }

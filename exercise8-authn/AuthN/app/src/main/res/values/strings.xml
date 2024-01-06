@@ -20,4 +20,8 @@
     <string name="button_text_logout">Logout</string>
 
     <string name="web_client_id">451782551370-erj2u8bqso2nquf8dkbcf8lkgvnsg1o8.apps.googleusercontent.com</string>
+
+    <string name="facebook_app_id">7022517581177874</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">OVLMyE98bcWxp8R7KoXPtxO9DSI</string>
 </resources>

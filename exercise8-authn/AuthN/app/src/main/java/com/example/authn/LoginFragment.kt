@@ -1,6 +1,7 @@
 package com.example.authn
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,11 +12,18 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
@@ -23,10 +31,12 @@ import com.google.firebase.auth.GoogleAuthProvider
 class LoginFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var callbackManager: CallbackManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
+        callbackManager = CallbackManager.Factory.create();
     }
 
     override fun onCreateView(
@@ -36,9 +46,9 @@ class LoginFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        val loginButton = view.findViewById<Button>(R.id.button_login)
-        loginButton.setOnClickListener {
-            loginHandler()
+        val emailLoginButton = view.findViewById<Button>(R.id.button_login)
+        emailLoginButton.setOnClickListener {
+            emailLoginHandler()
         }
 
         val googleLoginButton = view.findViewById<SignInButton>(R.id.button_google_login)
@@ -51,11 +61,22 @@ class LoginFragment : Fragment() {
             switchRegisterHandler()
         }
 
+        setupFacebookButton(view)
+
         return view
     }
 
+    private fun switchRegisterHandler() {
+        val fragment = RegisterFragment()
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 
-    private fun loginHandler() {
+    // =============== Email and password =============== //
+
+    private fun emailLoginHandler() {
         val emailEditText = requireView().findViewById<EditText>(R.id.input_email)
         val passwordEditText = requireView().findViewById<EditText>(R.id.input_password)
 
@@ -86,6 +107,8 @@ class LoginFragment : Fragment() {
                 }
             }
     }
+
+    // =============== Google =============== //
 
     private fun googleLoginHandler() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -131,12 +154,121 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun switchRegisterHandler() {
-        val fragment = RegisterFragment()
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+    // =============== Facebook =============== //
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        callbackManager.onActivityResult(requestCode, resultCode, data)
     }
+
+    private fun setupFacebookButton(view: View) {
+        val loginButton = view.findViewById<LoginButton>(R.id.button_facebook_login)
+        loginButton!!.setReadPermissions("email", "public_profile")
+        loginButton.setFragment(this)
+
+        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(result: LoginResult) {
+                Log.d("ABC", "signInWithFacebook:success")
+                handleFacebookAccessToken(result.accessToken)
+            }
+
+            override fun onCancel() {
+                Log.d("ABC", "signInWithFacebook:cancelled")
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.d("ABC", "signInWithFacebook:failure")
+            }
+        })
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d("ABC", "handleFacebookAccessToken:$token")
+
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    Log.d("ABC", "signInWithCredential:success")
+                } else {
+                    Log.w("ABC", "signInWithCredential:failure", task.exception)
+                    Toast.makeText(
+                        requireContext(),
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+    }
+
+    // ==================================================
+    // Code for Google One Tap Login. Left for reference.
+    // ==================================================
+
+    //    private lateinit var oneTapClient: SignInClient
+    //    private lateinit var signInRequest: BeginSignInRequest
+    //    private val REQ_ONE_TAP = 123 // any unique to activity
+    //
+    //    private fun googleLoginHandler() {
+    //        oneTapClient = Identity.getSignInClient(requireActivity())
+    //        signInRequest = BeginSignInRequest.builder()
+    //            .setGoogleIdTokenRequestOptions(
+    //                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+    //                    .setSupported(true)
+    //                    .setServerClientId(getString(R.string.web_client_id))
+    //                    .setFilterByAuthorizedAccounts(false)
+    //                    .build()
+    //            )
+    //            .build()
+    //
+    //        oneTapClient.beginSignIn(signInRequest)
+    //            .addOnSuccessListener(requireActivity()) { result ->
+    //                try {
+    //                    startIntentSenderForResult(
+    //                        result.pendingIntent.intentSender, REQ_ONE_TAP,
+    //                        null, 0, 0, 0, null
+    //                    )
+    //                } catch (e: IntentSender.SendIntentException) {
+    //                    Log.e("ABC", "Couldn't start One Tap UI: ${e.localizedMessage}")
+    //                }
+    //            }
+    //            .addOnFailureListener(requireActivity()) { e ->
+    //                e.localizedMessage?.let { Log.d("ABC", it) }
+    //            }
+    //    }
+    //
+    //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    //        super.onActivityResult(requestCode, resultCode, data)
+    //
+    //        when (requestCode) {
+    //            REQ_ONE_TAP -> {
+    //                try {
+    //                    val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
+    //                    val idToken = googleCredential.googleIdToken
+    //                    when {
+    //                        idToken != null -> {
+    //                            val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+    //                            auth.signInWithCredential(firebaseCredential)
+    //                                .addOnCompleteListener(requireActivity()) { task ->
+    //                                    if (task.isSuccessful) {
+    //                                        Log.d("ABC", "signInWithCredential:success")
+    //                                    } else {
+    //                                        Log.w("ABC", "signInWithCredential:failure", task.exception)
+    //                                    }
+    //                                }
+    //                        }
+    //
+    //                        else -> {
+    //                            Log.d("ABC", "No ID token!")
+    //                        }
+    //                    }
+    //                } catch (e: ApiException) {
+    //                    Log.d("ABC", "One tap dismissed.")
+    //                }
+    //            }
+    //        }
+    //    }
 
 }
