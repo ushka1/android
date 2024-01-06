@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp">
+    android:padding="24dp">
 
     <TextView
         android:id="@+id/title"
@@ -45,7 +45,6 @@
         android:id="@+id/button_switch_login"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:background="@drawable/border_button"
         android:text="@string/button_text_switch_login"
         android:textColor="?attr/colorPrimary" />

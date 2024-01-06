@@ -19,6 +19,9 @@
     <string name="text_dashboard">You are authenticated with the following credentials.</string>
     <string name="button_text_logout">Logout</string>
 
+    <string name="button_text_login_google">Login with Google</string>
+    <string name="button_text_login_facebook">Login with Facebook</string>
+
     <string name="web_client_id">451782551370-erj2u8bqso2nquf8dkbcf8lkgvnsg1o8.apps.googleusercontent.com</string>
 
     <string name="facebook_app_id">7022517581177874</string>

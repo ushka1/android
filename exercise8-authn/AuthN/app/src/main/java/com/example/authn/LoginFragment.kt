@@ -16,12 +16,11 @@ import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -51,7 +50,7 @@ class LoginFragment : Fragment() {
             emailLoginHandler()
         }
 
-        val googleLoginButton = view.findViewById<SignInButton>(R.id.button_google_login)
+        val googleLoginButton = view.findViewById<Button>(R.id.button_google_login)
         googleLoginButton.setOnClickListener {
             googleLoginHandler()
         }
@@ -61,7 +60,10 @@ class LoginFragment : Fragment() {
             switchRegisterHandler()
         }
 
-        setupFacebookButton(view)
+        val facebookLoginButton = view.findViewById<Button>(R.id.button_facebook_login)
+        facebookLoginButton.setOnClickListener {
+            facebookLoginHandler()
+        }
 
         return view
     }
@@ -163,25 +165,25 @@ class LoginFragment : Fragment() {
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun setupFacebookButton(view: View) {
-        val loginButton = view.findViewById<LoginButton>(R.id.button_facebook_login)
-        loginButton!!.setReadPermissions("email", "public_profile")
-        loginButton.setFragment(this)
+    private fun facebookLoginHandler() {
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult) {
+                    Log.d("ABC", "signInWithFacebook:success")
+                    handleFacebookAccessToken(result.accessToken)
+                }
 
-        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(result: LoginResult) {
-                Log.d("ABC", "signInWithFacebook:success")
-                handleFacebookAccessToken(result.accessToken)
-            }
+                override fun onCancel() {
+                    Log.d("ABC", "signInWithFacebook:cancelled")
+                }
 
-            override fun onCancel() {
-                Log.d("ABC", "signInWithFacebook:cancelled")
-            }
+                override fun onError(error: FacebookException) {
+                    Log.d("ABC", "signInWithFacebook:failure")
+                }
+            })
 
-            override fun onError(error: FacebookException) {
-                Log.d("ABC", "signInWithFacebook:failure")
-            }
-        })
+        LoginManager.getInstance()
+            .logInWithReadPermissions(this, callbackManager, listOf("email", "public_profile"))
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {

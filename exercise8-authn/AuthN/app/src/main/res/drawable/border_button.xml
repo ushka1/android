@@ -15,13 +15,16 @@
             <corners android:radius="1000dp" />
         </shape>
     </item>
-    <item>
+    <item
+        android:top="4dp"
+        android:bottom="3dp">
         <shape android:shape="rectangle">
             <corners android:radius="1000dp" />
             <stroke
                 android:width="2dp"
                 android:color="?attr/colorPrimary" />
             <solid android:color="@android:color/transparent" />
+
         </shape>
     </item>
 </ripple>
