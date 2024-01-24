@@ -9,10 +9,8 @@
 - 4.5 wdrożenie stripe'a
   - Zaimplementowane.
 
-<p style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-  <img src="./screenshots/ss1.png" />
-  <img src="./screenshots/ss2.png" />
-  <img src="./screenshots/ss3.png" />
-  <img src="./screenshots/ss4.png" />
-  <img src="./screenshots/ss5.png" />
-</p>
+| 1                                    | 2                                    | 3                                    |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| ![screenshot](./screenshots/ss1.png) | ![screenshot](./screenshots/ss2.png) | ![screenshot](./screenshots/ss3.png) |
+| 4                                    | 5                                    |                                      |
+| ![screenshot](./screenshots/ss4.png) | ![screenshot](./screenshots/ss5.png) |
