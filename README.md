@@ -38,3 +38,8 @@
 
   - [Android App](./exercise9-payments/Payments/)
   - [Node.js Api](./exercise9-payments/Api/)
+
+- Exercise 10 - Tests
+
+  - [Calculator Operator Unit Test](./exercise3-calculator/Calculator/app/src/test/java/com/example/calculator/OperatorUnitTest.kt) (15 asserts)
+  - [Calculator Main Activity UI Test](./exercise3-calculator/Calculator/app/src/androidTest/java/com/example/calculator/MainActivityUITest.kt) (26 matches/asserts)
