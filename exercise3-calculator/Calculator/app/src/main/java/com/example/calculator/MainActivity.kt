@@ -8,32 +8,6 @@ import org.w3c.dom.Text
 import java.math.BigDecimal
 import kotlin.math.ln
 
-enum class Operator {
-    ADD {
-        override fun getSymbol(): String = "+"
-        override fun getOperation(): (BigDecimal, BigDecimal) -> BigDecimal = { x, y -> x + y }
-    },
-    SUBTRACT {
-        override fun getSymbol(): String = "-"
-        override fun getOperation(): (BigDecimal, BigDecimal) -> BigDecimal = { x, y -> x - y }
-    },
-    MULTIPLY {
-        override fun getSymbol(): String = "*"
-        override fun getOperation(): (BigDecimal, BigDecimal) -> BigDecimal = { x, y -> x * y }
-    },
-    DIVIDE {
-        override fun getSymbol(): String = "/"
-        override fun getOperation(): (BigDecimal, BigDecimal) -> BigDecimal = { x, y -> x / y }
-    },
-    MODULO {
-        override fun getSymbol(): String = "%"
-        override fun getOperation(): (BigDecimal, BigDecimal) -> BigDecimal = { x, y -> x % y }
-    };
-
-    abstract fun getSymbol(): String
-    abstract fun getOperation(): (BigDecimal, BigDecimal) -> BigDecimal
-}
-
 class MainActivity : AppCompatActivity() {
     private var result: String? = null
     private var operator: Operator? = null
