@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Payments</string>
+    <string name="payment_button">Pay</string>
+    <string name="price_total">Total price</string>
 </resources>

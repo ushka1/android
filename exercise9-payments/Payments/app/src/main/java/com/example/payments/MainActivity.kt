@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.Result
@@ -14,26 +16,44 @@ import kotlinx.serialization.json.Json
 
 class MainActivity : AppCompatActivity() {
     private lateinit var paymentSheet: PaymentSheet
-    private lateinit var customerConfig: PaymentSheet.CustomerConfiguration
-    private lateinit var paymentIntentClientSecret: String
     private lateinit var paymentButton: Button
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var productAdapter: ProductAdapter
+    private lateinit var productViewModel: ProductViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
+        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
+        productAdapter = ProductAdapter(productViewModel)
+        productViewModel.products.observe(this) { products ->
+            productAdapter.updateProducts(products)
 
-        paymentButton = findViewById<Button>(R.id.payment_button)
+            if (productViewModel.isQuantityNotEmpty()) {
+                val totalPrice = productViewModel.getTotalPrice()
+                paymentButton.isEnabled = true
+                paymentButton.text = "Pay ${totalPrice / 100}.${totalPrice % 100} PLN"
+            } else {
+                paymentButton.isEnabled = false
+                paymentButton.text = "Pay"
+            }
+        }
+        recyclerView = findViewById(R.id.recycler_view)
+        recyclerView.adapter = productAdapter
+
+        paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
+        paymentButton = findViewById(R.id.payment_button)
         paymentButton.setOnClickListener {
             paymentButton.isEnabled = false
             startPayment()
         }
+        paymentButton.isEnabled = false
     }
 
-
     private fun startPayment() {
-        val productList = ProductList(listOf(Product("Bike", 10000, 3)))
+        val productList = ProductList(productViewModel.products.value!!)
         val jsonBody = Json.encodeToString(ProductList.serializer(), productList)
 
         "http://10.0.2.2:3000/payment-sheet"
@@ -43,8 +63,8 @@ class MainActivity : AppCompatActivity() {
             .responseJson { _, _, result ->
                 if (result is Result.Success) {
                     val responseJson = result.get().obj()
-                    paymentIntentClientSecret = responseJson.getString("paymentIntent")
-                    customerConfig = PaymentSheet.CustomerConfiguration(
+                    val paymentIntentClientSecret = responseJson.getString("paymentIntent")
+                    val customerConfig = PaymentSheet.CustomerConfiguration(
                         responseJson.getString("customer"),
                         responseJson.getString("ephemeralKey")
                     )
@@ -54,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     paymentSheet.presentWithPaymentIntent(
                         paymentIntentClientSecret,
                         PaymentSheet.Configuration(
-                            merchantDisplayName = "My merchant name",
+                            merchantDisplayName = "John Doe",
                             customer = customerConfig,
                             allowsDelayedPaymentMethods = true
                         )
@@ -64,8 +84,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onPaymentSheetResult(paymentSheetResult: PaymentSheetResult) {
-        paymentButton.isEnabled = true
-
         when (paymentSheetResult) {
             is PaymentSheetResult.Canceled -> {
                 Toast.makeText(this, "Payment canceled", Toast.LENGTH_SHORT).show()
@@ -84,6 +102,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Payment completed", Toast.LENGTH_SHORT).show()
             }
         }
+
+        paymentButton.isEnabled = true
     }
 
 
