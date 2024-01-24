@@ -72,4 +72,8 @@ class MainActivity : AppCompatActivity() {
         return repository.getAllTasks().size
     }
 
+    fun getTaskList(): List<TaskItem> {
+        return repository.getAllTasks()
+    }
+
 }

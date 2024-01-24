@@ -11,6 +11,9 @@
       <entry key="testSwipeToDeleteTask()">
         <State />
       </entry>
+      <entry key="testTaskRendering()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
