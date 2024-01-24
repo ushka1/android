@@ -18,7 +18,7 @@ class MainActivityUITest {
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun testCalculate() {
+    fun testAddition() {
         // Write 23.5
         onView(withId(R.id.button2)).perform(click())
         onView(withId(R.id.button3)).perform(click())
