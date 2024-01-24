@@ -7,6 +7,11 @@ import kotlin.random.Random
 
 class OperatorUnitTest {
 
+    private val random = Random.Default
+    private fun randomBigDecimal(from: Double, to: Double): BigDecimal {
+        return random.nextDouble(from, to).toBigDecimal()
+    }
+
     @Test
     fun testGetSymbol() {
         assertEquals("+", Operator.ADD.getSymbol())
@@ -18,46 +23,54 @@ class OperatorUnitTest {
 
     @Test
     fun testGetOperation() {
-        // 4 + 2 = 6
-        assertEquals(BigDecimal("6"), Operator.ADD.getOperation()(BigDecimal("4"), BigDecimal("2")))
-
-        // 4 - 2 = 2
         assertEquals(
-            BigDecimal("2"),
-            Operator.SUBTRACT.getOperation()(BigDecimal("4"), BigDecimal("2"))
+            BigDecimal("1111111110111110"),
+            Operator.ADD.getOperation()(
+                BigDecimal("123456789012345"),
+                BigDecimal("987654321098765")
+            )
         )
 
-        // 4 * 2 = 8
         assertEquals(
-            BigDecimal("8"),
-            Operator.MULTIPLY.getOperation()(BigDecimal("4"), BigDecimal("2"))
+            BigDecimal("864197532086420"),
+            Operator.SUBTRACT.getOperation()(
+                BigDecimal("987654321098765"),
+                BigDecimal("123456789012345")
+            )
         )
 
-        // 4 / 2 = 2
         assertEquals(
-            BigDecimal("2"),
-            Operator.DIVIDE.getOperation()(BigDecimal("4"), BigDecimal("2"))
+            BigDecimal("121932631137021071359549253925"),
+            Operator.MULTIPLY.getOperation()(
+                BigDecimal("123456789012345"),
+                BigDecimal("987654321098765")
+            )
         )
 
-        // 4 mod 2 = 0
         assertEquals(
-            BigDecimal("0"),
-            Operator.MODULO.getOperation()(BigDecimal("4"), BigDecimal("2"))
+            BigDecimal("197530864219753"),
+            Operator.DIVIDE.getOperation()(
+                BigDecimal("987654321098765"),
+                BigDecimal("5")
+            )
         )
-    }
 
-    private val random = Random.Default
-    private fun randomBigDecimal(from: Double, to: Double): BigDecimal {
-        return random.nextDouble(from, to).toBigDecimal()
+        assertEquals(
+            BigDecimal("9000005"),
+            Operator.MODULO.getOperation()(
+                BigDecimal("987654321098765"),
+                BigDecimal("123456789012345")
+            )
+        )
     }
 
     @Test
     fun testGetOperationRandomized() {
-        val numberOfTests = 100
+        val numberOfTests = 1000
 
         for (i in 1..numberOfTests) {
-            val num1 = randomBigDecimal(-100.0, 100.0)
-            val num2 = randomBigDecimal(-100.0, 100.0)
+            val num1 = randomBigDecimal(-1000000.0, 1000000.0)
+            val num2 = randomBigDecimal(-1000000.0, 1000000.0)
             // protect against division by 0
             val divNum2 = if (num2 == BigDecimal(0)) BigDecimal(1) else num2
 
