@@ -33,3 +33,8 @@
 - Exercise 8 - AuthN
 
   - [Exercise files](./exercise8-authn/AuthN/)
+
+- Exercise 9 - Payments
+
+  - [Android App](./exercise9-payments/Payments/)
+  - [Node.js Api](./exercise9-payments/Api/)
