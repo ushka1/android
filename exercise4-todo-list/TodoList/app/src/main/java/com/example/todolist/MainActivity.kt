@@ -68,4 +68,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun getTaskCount(): Int {
+        return repository.getAllTasks().size
+    }
+
+    fun getTaskList(): List<TaskItem> {
+        return repository.getAllTasks()
+    }
+
 }

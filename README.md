@@ -43,3 +43,5 @@
 
   - [Calculator Operator Unit Test](./exercise3-calculator/Calculator/app/src/test/java/com/example/calculator/OperatorUnitTest.kt) (15 asserts)
   - [Calculator Main Activity UI Test](./exercise3-calculator/Calculator/app/src/androidTest/java/com/example/calculator/MainActivityUITest.kt) (26 matches/asserts)
+  - [Todo List Datasource Unit Test](./exercise4-todo-list/TodoList/app/src/test/java/com/example/todolist/TaskDatasourceUnitTest.kt) (7 asserts)
+  - [Todo List Main Activity UI Test](./exercise4-todo-list/TodoList/app/src/androidTest/java/com/example/todolist/MainActivityUITest.kt) (6 matches/asserts)

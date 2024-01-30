@@ -6,7 +6,7 @@ import java.util.UUID
 
 class TaskDatasource {
 
-    private val tasks = mutableListOf<TaskItem>(
+    private var tasks = mutableListOf<TaskItem>(
         TaskItem(
             name = "Prepare Client Demo",
             description = "Prepare a client demo for the upcoming project meeting.",
@@ -56,6 +56,10 @@ class TaskDatasource {
             completed = true
         )
     )
+
+    fun setTasks(tasks: List<TaskItem>) {
+        this.tasks = tasks.toMutableList()
+    }
 
     fun getAllTasks(): List<TaskItem> {
         return tasks
